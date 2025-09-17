@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .  # Add repository root to PYTHONPATH
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

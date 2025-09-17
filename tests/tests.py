@@ -1,4 +1,4 @@
-# File: test_nvquantum.py
+# File: tests/tests.py
 # Description: Unit tests for NVQuantum library (nvquantum.py).
 # Tests is_prime, mod_mult_gate, postprocess_shors, and simulate_odmr.
 import pytest
