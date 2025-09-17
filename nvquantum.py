@@ -2,7 +2,7 @@
 # Description: Core library for NVQuantum, a simulated NV (Nitrogen-Vacancy) center diamond quantum computer.
 # Provides functionality for NV center alignment, ODMR simulation, Shor's algorithm, and XY8 decoupling.
 # Notes:
-# - Requires qiskit, qiskit-aer, qutip, opencv-python, numpy, matplotlib, pytest.
+# - Requires qiskit, qiskit-aer, qutip, opencv-python, numpy, matplotlib.
 # - Simulates at 77.35 K with realistic noise (T1=10-100 ms, T2=10-100 µs, fluorescence-based readout).
 # - Features: Temperature-dependent noise, realistic timing, coprime selection for Shor, ODMR plotting.
 import numpy as np
@@ -18,6 +18,7 @@ from qiskit.circuit import Gate
 from fractions import Fraction
 from math import gcd
 import matplotlib.pyplot as plt
+import random
 
 # Suppress QuTiP FutureWarning
 import warnings
@@ -33,19 +34,40 @@ FLUORESCENCE_FACTOR = 1.2  # 20% intensity increase at 77 K
 T1_BASE = 50e-3  # Baseline T1 at 300 K (s)
 T2_BASE = 50e-6  # Baseline T2 at 300 K (s)
 
-def is_prime(n):
-    """Check if a number is prime.
+def is_prime(n, k=5):
+    """Check if a number is prime using the Rabin-Miller primality test.
 
     Args:
         n (int): Number to check.
+        k (int): Number of iterations for probabilistic testing (default: 5).
 
     Returns:
-        bool: True if n is prime, False otherwise.
+        bool: True if n is likely prime, False if composite.
     """
     if n < 2:
         return False
-    for i in range(2, int(np.sqrt(n)) + 1):
-        if n % i == 0:
+    if n == 2 or n == 3:
+        return True
+    if n % 2 == 0:
+        return False
+
+    # Write n-1 as 2^r * d
+    r, d = 0, n - 1
+    while d % 2 == 0:
+        r += 1
+        d //= 2
+
+    # Witness test
+    for _ in range(k):
+        a = random.randrange(2, n - 1)
+        x = pow(a, d, n)  # a^d mod n
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(r - 1):
+            x = pow(x, 2, n)  # x^2 mod n
+            if x == n - 1:
+                break
+        else:
             return False
     return True
 
@@ -454,21 +476,3 @@ def postprocess_shors(counts, num_control, a, N):
             if factor1 * factor2 == N and factor1 > 1 and factor2 > 1:
                 return r, (factor1, factor2)
     return None, (None, None)
-
-# Unit tests
-def test_is_prime():
-    assert is_prime(2) == True
-    assert is_prime(15) == False
-    assert is_prime(17) == True
-
-def test_mod_mult_gate():
-    U = mod_mult_gate(7, 15)
-    assert U.label == "M_7 mod 15"
-    with pytest.raises(ValueError):
-        mod_mult_gate(5, 15)
-
-def test_postprocess_shors():
-    counts = {'0000': 256, '1000': 256, '0100': 256, '1100': 256}
-    r, factors = postprocess_shors(counts, 4, 7, 15)
-    assert r == 4
-    assert factors == (3, 5)
