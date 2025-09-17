@@ -1,11 +1,11 @@
 # Requirements for NVQuantum project
 # Compatible with Python 3.8+ and the 2025 environment
-# Covers simulation, CLI, plotting, and testing for nv.py and nvquantum.py
+# Covers simulation, CLI, plotting, and testing for qnv.py and nvquantum.py
 qiskit==1.2.4
 qiskit-aer==0.15.1
 qutip==5.0.3
 numpy==1.26.4
-opencv-python==4.10.0
+opencv-python==4.10.0.84
 pyserial==3.5
 rich==13.9.2
 pyfiglet==1.0.2
