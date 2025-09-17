@@ -1,4 +1,4 @@
-# NVQuantum
+# NVQauntum - Qiskit NV Diamond Simulator
 
 🚀 **NVQuantum** is a Python-based simulation of an NV (Nitrogen-Vacancy) center diamond quantum computer, designed to run Shor's algorithm for factoring composite numbers. It simulates a quantum computing environment with a 532 nm laser, galvo scanning, a 200 fps camera (using OpenCV), automatic NV center alignment, ODMR (Optically Detected Magnetic Resonance) with hyperfine interaction for 14N, and XY8 dynamical decoupling. The simulation operates at liquid nitrogen temperature (77.35 K) and supports affordable hardware components, such as a €50 NV diamond and a €30 microwave chip from Alibaba. The project features a user-friendly command-line interface with colorful rich tables, progress bars for time-consuming processes, and robust error handling.
 
