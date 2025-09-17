@@ -146,17 +146,17 @@ The simulated NVQuantum machine consists of interconnected components modeled af
 
 ```mermaid
 graph TD
-    A[Laser (532 nm)] -->|Pulse| B[NV Centers]
-    B -->|Fluorescence| C[Camera (200 fps)]
+    A[Laser 532nm] -->|Pulse| B[NV Centers]
+    B -->|Fluorescence| C[Camera 200fps]
     D[Galvo Scanner] -->|Position| B
     E[Microwave Chip] -->|ODMR Pulses| B
     B -->|Qubits| F[Quantum Circuit]
-    F -->|Shor's Algorithm| G[NVBackend (Qiskit)]
+    F -->|Shor's Algorithm| G[NVBackend Qiskit]
     G -->|Measurements| H[Results]
     F -->|XY8 Decoupling| I[Noise Mitigation]
     C -->|Frame| J[NV Detection]
     J -->|NV Memory| G
-    E -->|Frequency Sweep| K[ODMR Simulation (QuTiP)]
+    E -->|Frequency Sweep| K[ODMR Simulation QuTiP]
     K -->|Contrast Plot| L[Matplotlib Output]
 ```
 
