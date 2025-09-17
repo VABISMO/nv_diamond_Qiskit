@@ -4,6 +4,7 @@
 
 <img width="1114" height="798" alt="image" src="https://github.com/user-attachments/assets/d2de2bc2-86c8-4935-a81a-1b6b7760fe5a" />
 
+[![Tests](https://github.com/VABISMO/nv_diamond_Qiskit/actions/workflows/tests.yml/badge.svg)](https://github.com/VABISMO/nv_diamond_Qiskit/actions)
 
 ## Features
 
